@@ -40,6 +40,35 @@ MongoClient.connect(url,{useNewUrlParser:true},(err,client) =>{
             });
         });
 
+        app.get("/produits/:categorie",(req,res) =>{
+            let categorie=req.params.categorie;
+            console.log("/produits/:categorie");
+            db.collection("produits").find({type:categorie}).toArray((err,documents)=> {
+                res.end(JSON.stringify(documents));
+            });
+        });
+
+        app.get("/categories",(req,res) =>{
+            console.log("/categories");
+            categories=[];
+            try
+            {
+            db.collection("produits").find().toArray((err,documents)=> {
+               for(let doc of documents) {
+                   if(!categories.includes(doc.type))
+                   categories.push(doc.type);
+               }
+               console.log("Renvoie de "+JSON.stringify(categories));
+               res.end(JSON.stringify(categories));
+            });
+           } catch(e)
+           {
+            console.log("Erreur sur /categories:"+e)
+            res.end(JSON.stringify(categories));
+           }
+        });
+
+
 
         app.get("/produits/:auteur",(req,res) =>{
             console.log("/produits/:auteur");
@@ -49,24 +78,23 @@ MongoClient.connect(url,{useNewUrlParser:true},(err,client) =>{
             });
         });
     
-    /*
+    
     //Connexion
     app.post("/membres/connexion",(req,res)=>{
-        db.collection("/membres/connexion avec"+JSON.stringify(req.body)).find(req.body);
+        console.log("/utilisateurs/connexion avec"+JSON.stringify(req.body));
         db.collection("membres").find(req.body).toArray((err,documents)=> {
         if(documents.length==1)
-        
+
           res.end(JSON.stringify({"resultat":1,"message":"Authentification réussie"})); 
          else res.end(JSON.stringify({"resultat":0,"message":"Email et/ou mot de passe"}));
       
         });
-      
       });
-      */
       
+      /*
      //Ajout Utilisateurs
      app.post("/membres",(req,res)=>{
-        db.collection("membre").find(req.body)
+        db.collection("membres").find(req.body)
         .toArray((err,documents)=> {
         if(documents.length==1)
         
@@ -76,7 +104,7 @@ MongoClient.connect(url,{useNewUrlParser:true},(err,client) =>{
         });
       
       });
-    
+    */
 });
 
 

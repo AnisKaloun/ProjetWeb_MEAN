@@ -1,10 +1,10 @@
 [
- {"nom":"Le monde s'effondre","auteur":"Chinua Achebe","genre":"Fiction historique","prix":"7.49"},  
- {"nom":"Contes","auteur":"Hans Christian Andersen","genre":"Contes","prix":"23.49"},
- {"nom":"Orgueil et Préjugés","auteur":"Jane Austen","genre":"Roman d'amour","prix":"6.80"},
- {"nom":"Le Père Goriot","auteur":"Honoré de Balzac","genre":"Fiction","prix":"3"},
- {"nom":"Molloy, Malone meurt, L'Innommable","auteur":"Samuel Beckett","genre":"Roman","prix":"25"},
- {"nom":"Décaméron","auteur":"Boccace","genre":"Fiction","prix":"12.20"},
- {"nom":"Fictions","auteur":"Jorge Luis Borges","genre":"Fantasy littéraire","prix":"6.80"},
- {"nom":"Les Hauts de Hurlevent","auteur":"Emily Brontë","genre":"Roman","prix":"6.50"} 
+ {"nom":"Le monde s'effondre","auteur":"Chinua Achebe","type":"Fiction historique","prix":"7.49"},  
+ {"nom":"Contes","auteur":"Hans Christian Andersen","type":"Contes","prix":"23.49"},
+ {"nom":"Orgueil et Préjugés","auteur":"Jane Austen","type":"Roman d'amour","prix":"6.80"},
+ {"nom":"Le Père Goriot","auteur":"Honoré de Balzac","type":"Fiction","prix":"3"},
+ {"nom":"Molloy, Malone meurt, L'Innommable","auteur":"Samuel Beckett","type":"Roman","prix":"25"},
+ {"nom":"Décaméron","auteur":"Boccace","type":"Fiction","prix":"12.20"},
+ {"nom":"Fictions","auteur":"Jorge Luis Borges","type":"Fantasy littéraire","prix":"6.80"},
+ {"nom":"Les Hauts de Hurlevent","auteur":"Emily Brontë","type":"Roman","prix":"6.50"} 
 ]

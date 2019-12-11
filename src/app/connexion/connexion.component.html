@@ -1,0 +1,10 @@
+<form (ngSubmit)="onSubmit()" #inscriptionForm="ngForm">
+    <label>Email</label>
+    <input type="text" class="form-control" required[(ngModel)]="utilisateur['email']" 
+    name="email"/>
+    
+    <label>Mot de Passe</label>
+    <input type="password" class="form-control" required
+     [(ngModel)]="utilisateur['password']" name="password"/>
+     <input type="submit" value="Se connecter"/>
+</form>

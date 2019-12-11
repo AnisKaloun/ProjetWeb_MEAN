@@ -1,0 +1,19 @@
+<div *ngIf="!(user|async)">
+    <p class="card-header">En vous connectant, découvrez nos :</p>
+    <div class="card-body">
+        <div *ngFor="let categorie of categories" class="card">
+            <p class="card-text">{{categorie}}</p>
+        </div>
+    </div>
+</div>
+<div *ngIf="(user|async)">
+    <p class="card-header"> vous êtes connecté</p>
+    <div class="card-body">
+        <div *ngFor="let categorie of categories" class="card">
+            <p class="card-text">
+                <input type="button" value="Allez vite découvrire nos {{categorie}}"
+                    (click)="produitsParCategorie(categorie)" />
+            </p>
+        </div>
+    </div>
+</div>
