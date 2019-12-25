@@ -1,4 +1,12 @@
 <form (ngSubmit)="onSubmit()" #inscriptionForm="ngForm">
+    <label>Nom</label>
+    <input type="text" class="form-control" required [(ngModel)]="utilisateur['nom']" 
+    name="Nom"/>
+    
+    <label>Prenom</label>
+    <input type="text" class="form-control" required
+     [(ngModel)]="utilisateur['prenom']" name="Prenom"/>
+
     <label>Email</label>
     <input type="text" class="form-control" required [(ngModel)]="utilisateur['email']" 
     name="email"/>
@@ -6,7 +14,5 @@
     <label>Mot de Passe</label>
     <input type="password" class="form-control" required
      [(ngModel)]="utilisateur['password']" name="password"/>
-     <input type="submit" value="Se connecter"/>
+     <input type="submit" value="S'inscrire'"/>
 </form>
-<a class="nav-link active" routerLink="/inscription">Pas encore inscrit?</a>
-

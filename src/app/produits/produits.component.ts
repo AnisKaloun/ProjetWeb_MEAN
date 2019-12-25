@@ -26,12 +26,15 @@ export class ProduitsComponent implements OnInit {
       if (params["categorie"] !== undefined) {
         console.log("/produits/" + params["categorie"]);
         this.produitsService.getProduitsParCategorie(params["categorie"]).subscribe(produits => {
-          this.produits = this.produits;
+          produits.sort((a, b) => (a.nom > b.nom) ? 1 : -1);
+          this.produits = produits;
         });
       }
       else {
 
         this.produitsService.getProduits().subscribe(produits => {
+          console.log(produits[0]['nom']);
+          produits.sort((a, b) => (a.nom > b.nom) ? 1 : -1);
           this.produits = produits;
         });
       }

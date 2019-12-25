@@ -16,7 +16,7 @@ const httpOptions={
 })
 export class AuthentificationService {
   private user:Subject<string>=new BehaviorSubject<string>(undefined);
-  private baseURL: string="http://localhost:8888";
+  private baseURL: string="http://localhost:8888/";
 
 
   constructor(private http: HttpClient) { }
@@ -32,5 +32,10 @@ export class AuthentificationService {
   verificationConnexion(identifiants):Observable<any> {
    return this.http.post(this.baseURL+'membres/connexion',JSON.stringify(identifiants),httpOptions);
    }
+
+   inscription(identifiants):Observable<any>{
+     console.log("inscription service"+JSON.stringify(identifiants));
+    return this.http.post(this.baseURL+'membres/inscription',JSON.stringify(identifiants),httpOptions);
+  }
 
 }

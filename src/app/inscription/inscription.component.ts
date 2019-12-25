@@ -1,28 +1,24 @@
-import { Component} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from '../authentification.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-connexion',
-  templateUrl: './connexion.component.html',
-  styleUrls: ['./connexion.component.css']
+  selector: 'app-inscription',
+  templateUrl: './inscription.component.html',
+  styleUrls: ['./inscription.component.css']
 })
-export class ConnexionComponent  {
-
-  private utilisateur={"email":"","password":""};
+export class InscriptionComponent  {
+  private utilisateur={"email":"","password":"","nom":"","prenom":""};
   private message: string = "";
-  
-  constructor(private authService: AuthentificationService, private router:Router)
-  {
-  }
+  constructor(private authService :AuthentificationService,private router:Router) {}
 
- 
+
   onSubmit(){
     console.log("in submit function");
-    this.authService.verificationConnexion(this.utilisateur).subscribe(reponse => {
+    this.authService.inscription(this.utilisateur).subscribe(reponse => {
       this.message=reponse['message'];
       if(reponse['resultat']) {
-        console.log("je suis co");
+        console.log("je suis inscrit");
         window.alert(this.message);
         this.authService.connect(this.utilisateur.email);
         this.router.navigate(['/categories']);
@@ -34,6 +30,6 @@ export class ConnexionComponent  {
       }
       setTimeout(()=> {this.router.navigate(['/categories']); }, 1000);
     });
-  }
-  
+  } 
+
 }
