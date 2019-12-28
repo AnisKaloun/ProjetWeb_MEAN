@@ -29,6 +29,10 @@ export class AuthentificationService {
     this.user.next(null);
   }
 
+  getUserMail(){
+    return this.user['email'];
+  }
+
   verificationConnexion(identifiants):Observable<any> {
    return this.http.post(this.baseURL+'membres/connexion',JSON.stringify(identifiants),httpOptions);
    }

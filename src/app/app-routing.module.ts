@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { ProduitsComponent } from './produits/produits.component';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { PanierComponent } from './panier/panier.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'inscription',
    component: InscriptionComponent
+  },
+  {
+    path :'panier',
+    component:PanierComponent
   }
 ];
 

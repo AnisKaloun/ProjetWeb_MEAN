@@ -32,7 +32,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
 
     });
 
-
+    //get tout les produits
     app.get("/produits", (req, res) => {
         console.log("/produits");
         db.collection("produits").find().toArray((err, documents) => {
@@ -40,6 +40,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
         });
     });
 
+    //get les produits de la catégorie    
     app.get("/produits/:categorie", (req, res) => {
         let categorie = req.params.categorie;
         console.log("/produits/" + categorie);
@@ -48,7 +49,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
             res.end(JSON.stringify(documents));
         });
     });
-
+    //get toute les categories
     app.get("/categories", (req, res) => {
         console.log("/categories");
         categories = [];
@@ -101,11 +102,64 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
             }
             else {
                 db.collection("membres").insertOne(req.body);
+                db.collection("Panier").insertOne({ "email": req.body.email, "produits": [] });
                 res.end(JSON.stringify({ "resultat": 1, "message": "inscription Reussi" }));
             }
         });
 
     });
+
+    //Ajout un article dans le panier
+    app.post("/Panier/ajout", (req, res) => {
+        console.log("Ajout Produit au Panier " + JSON.stringify(req.body.produit));
+        db.collection("Panier").find({ "email": req.body.email, "produits": { $in: [req.body.produit] } }).toArray(function (err, documents) {
+            if (documents.length == 1) {
+                
+                //on incremente le nombre d'exemplaire 
+                console.log("on incremente le nombre d'exemplaire");
+                db.collection("Panier").updateOne({ "email": req.body.email, "produits": req.body.produit }, { $inc: { "produits.$.nbrExemplaire": 1 }});
+                
+           }
+           else {
+                db.collection("Panier").updateOne({ "email": req.body.email },
+                    { $push: { "produits": req.body.produit } });
+            }
+
+        });
+
+
+    });
+
+    //Get Panier
+    app.get("/Panier/:email", (req, res) => {
+        console.log("P");
+        let email = req.params.email;
+        console.log("Get Panier de" + email);
+        db.collection("Panier").find({ email: email }, { "produits": 1, "_id": 0 }).toArray((err, documents) => {
+            res.end(JSON.stringify(documents));
+            console.log("result returned");
+        });
+    });
+
+    //Valider Panier
+    app.get("/Panier/valider/:email", (req, res) => {
+        let email = req.params.email;
+        console.log("validation Panier : Serveur mail : " + email);
+        db.collection("Panier").update({ "email": email },
+            { $set: { "produits": [] } });
+
+    });
+
+    //supprimer un article dans le panier
+    app.post("/Panier/delete", (req, res) => {
+        console.log("Ajout Panier Serveur " + JSON.stringify(req.body.produit));
+        db.collection("Panier").updateOne({ "email": req.body.email },
+            { $push: { "produits": req.body.produit } });
+
+    });
+
+
+
 
 });
 

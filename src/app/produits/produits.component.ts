@@ -10,8 +10,9 @@ import { AuthentificationService } from '../authentification.service';
   styleUrls: ['./produits.component.css']
 })
 export class ProduitsComponent implements OnInit {
-  private user: Observable<string>
+  private user: Observable<string>;
   private produits: Object[] = new Array();
+  private ajoutPanier = { "email": "", "produit": [] };
 
   constructor(private route: ActivatedRoute,
     private authService: AuthentificationService,
@@ -33,12 +34,24 @@ export class ProduitsComponent implements OnInit {
       else {
 
         this.produitsService.getProduits().subscribe(produits => {
-          console.log(produits[0]['nom']);
           produits.sort((a, b) => (a.nom > b.nom) ? 1 : -1);
           this.produits = produits;
         });
       }
     });
+
+  }
+
+  AjoutProduit(produit) {
+
+    this.authService.getUser().subscribe(value => {
+      this.ajoutPanier['email'] = value;
+      this.ajoutPanier['produit'] = produit;
+      this.ajoutPanier['produit']['nbrExemplaire']=1;
+      this.produitsService.ajoutProduit(this.ajoutPanier).subscribe(val => console.log);
+      window.alert("votre produit a était ajouté au Panier");
+    });
+
 
   }
 
