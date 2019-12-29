@@ -23,8 +23,9 @@ export class MenuComponent implements OnInit {
 
   deconnexion() {
     console.log("i'm disconnecting");
-    this.authService.disconnect();
     this.router.navigate(['/categories']);
+    this.authService.disconnect();
+   // this.router.navigate(['/categories']);
   }
 
 }

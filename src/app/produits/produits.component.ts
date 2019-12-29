@@ -13,6 +13,7 @@ export class ProduitsComponent implements OnInit {
   private user: Observable<string>;
   private produits: Object[] = new Array();
   private ajoutPanier = { "email": "", "produit": [] };
+  private email;
 
   constructor(private route: ActivatedRoute,
     private authService: AuthentificationService,
@@ -39,20 +40,21 @@ export class ProduitsComponent implements OnInit {
         });
       }
     });
-
+    this.authService.getUser().subscribe(value => { 
+      this.email=value;
+    });
   }
 
   AjoutProduit(produit) {
-
-    this.authService.getUser().subscribe(value => {
-      this.ajoutPanier['email'] = value;
+     this.ajoutPanier['email'] = this.email;
       this.ajoutPanier['produit'] = produit;
       this.ajoutPanier['produit']['nbrExemplaire']=1;
-      this.produitsService.ajoutProduit(this.ajoutPanier).subscribe(val => console.log);
-      window.alert("votre produit a était ajouté au Panier");
-    });
-
-
+      this.produitsService.ajoutProduit(this.ajoutPanier).subscribe(val => {
+        window.alert("votre produit a était ajouté au Panier");
+      });
+      
   }
+
+  
 
 }

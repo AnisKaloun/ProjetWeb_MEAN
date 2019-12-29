@@ -94,13 +94,13 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
     //Ajout Utilisateurs
     app.post("/membres/inscription", (req, res) => {
 
-        console.log("req.body: " + JSON.stringify(req.body));
         //tester l'existance de l'email
         db.collection("membres").find({ "email": req.body.email }).toArray(function (err, documents) {
             if (documents.length == 1) {
                 res.end(JSON.stringify({ "resultat": 0, "message": "Email existe déjà" }));
             }
             else {
+                console.log("inscription nouveau membre" + req.body);
                 db.collection("membres").insertOne(req.body);
                 db.collection("Panier").insertOne({ "email": req.body.email, "produits": [] });
                 res.end(JSON.stringify({ "resultat": 1, "message": "inscription Reussi" }));
@@ -112,17 +112,22 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
     //Ajout un article dans le panier
     app.post("/Panier/ajout", (req, res) => {
         console.log("Ajout Produit au Panier " + JSON.stringify(req.body.produit));
-        db.collection("Panier").find({ "email": req.body.email, "produits": { $in: [req.body.produit] } }).toArray(function (err, documents) {
+        console.log("email :" + req.body.email + "prduit nom : " + req.body.produit['nom'] + "produit auteur" + req.body.produit['auteur'])
+        db.collection("Panier").find({ "email": req.body.email, "produits.nom": req.body.produit['nom'], "produits.auteur": req.body.produit['auteur'] }).toArray(function (err, documents) {
             if (documents.length == 1) {
-                
                 //on incremente le nombre d'exemplaire 
                 console.log("on incremente le nombre d'exemplaire");
-                db.collection("Panier").updateOne({ "email": req.body.email, "produits": req.body.produit }, { $inc: { "produits.$.nbrExemplaire": 1 }});
-                
-           }
-           else {
+                db.collection("Panier").updateOne({ "email": req.body.email, "produits": req.body.produit },
+                    { $inc: { "produits.$.nbrExemplaire": 1 } });
+                res.end(JSON.stringify({ "resultat": 1 }));
+
+            }
+            else {
+                console.log("ajout d'un nouveau produit dans le panier");
                 db.collection("Panier").updateOne({ "email": req.body.email },
                     { $push: { "produits": req.body.produit } });
+                res.end(JSON.stringify({ "resultat": 1 }));
+
             }
 
         });
@@ -132,12 +137,11 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
 
     //Get Panier
     app.get("/Panier/:email", (req, res) => {
-        console.log("P");
         let email = req.params.email;
         console.log("Get Panier de" + email);
         db.collection("Panier").find({ email: email }, { "produits": 1, "_id": 0 }).toArray((err, documents) => {
             res.end(JSON.stringify(documents));
-            console.log("result returned");
+            console.log("Panier envoyé");
         });
     });
 
@@ -152,9 +156,110 @@ MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
 
     //supprimer un article dans le panier
     app.post("/Panier/delete", (req, res) => {
-        console.log("Ajout Panier Serveur " + JSON.stringify(req.body.produit));
+        console.log("supprimer produit du Panier Serveur " + JSON.stringify(req.body.produit));
         db.collection("Panier").updateOne({ "email": req.body.email },
-            { $push: { "produits": req.body.produit } });
+            { $pull: { "produits": req.body.produit } }, function (err, result) {
+                console.log("result : " + result);
+                if (result['result']['ok'] == 1) {
+                    res.end(JSON.stringify({ "resultat": 1 }));
+                    console.log("suppresion done");
+                }
+                else {
+                    console.log("Pas de suppresion");
+                }
+
+
+            });
+
+    });
+
+    //diminuer le nombre d'exemplaire d'un article dans le panier
+    app.post("/Panier/diminuerExemplaire", (req, res) => {
+        console.log("diminuer examplaire produit du Panier Serveur " + JSON.stringify(req.body.produit));
+        db.collection("Panier").updateOne({ "email": req.body.email, "produits": req.body.produit },
+            { $inc: { "produits.$.nbrExemplaire": -1 } }, function (err, result) {
+                console.log("result : " + result);
+                if (result['result']['ok'] == 1) {
+                    res.end(JSON.stringify({ "resultat": 1 }));
+                    console.log("suppresion done");
+                }
+                else {
+                    console.log("Pas de suppresion");
+                }
+
+
+            });
+
+    });
+
+    //augmenter le nombre d'exemplaire d'un article dans le panier
+    app.post("/Panier/augmenterExemplaire", (req, res) => {
+        console.log("augmenter examplaire produit du Panier Serveur " + JSON.stringify(req.body.produit));
+        db.collection("Panier").updateOne({ "email": req.body.email, "produits": req.body.produit },
+            { $inc: { "produits.$.nbrExemplaire": 1 } }, function (err, result) {
+                console.log("result : " + result);
+                if (result['result']['ok'] == 1) {
+                    res.end(JSON.stringify({ "resultat": 1 }));
+                    console.log("suppresion done");
+                }
+                else {
+                    console.log("Pas de suppresion");
+                }
+
+
+            });
+
+    });
+
+
+
+    app.post("/Recherche", function (req, res) {
+
+        var filter = {};
+        //categorie
+        if (req.body.categorie !== "") {
+            filter["type"] = req.body.categorie;
+        }
+        //prix
+        if (req.body.prixMax !== "" && req.body.prixMin !== "") {
+            filter["prix"] = { $gt: parseInt(req.body.prixMin), $lt: parseInt(req.body.prixMax) };
+        }
+        else if (req.body.prixMax == "" && req.body.prixMin !== "") {
+            filter["prix"] = { $gt: parseInt(req.body.prixMin) };
+
+        }
+        else if (req.body.prixMax !== "" && req.body.prixMin == "") {
+
+            filter["prix"] = { $lt: parseInt(req.body.prixMax) };
+        }
+
+        //nom
+        if (req.body.nom !== "") {
+            filter["nom"] = { $regex: req.body.nom, $options: "ix" };
+            console.log()
+        }
+        if (req.body.auteur !== "") {
+            filter["auteur"] = { $regex: req.body.auteur, $options: "ix" };
+        }
+
+        //
+
+        console.log("filter: " + JSON.stringify(filter));
+
+        db.collection("produits").find(filter).toArray(function (err, documents) {
+            console.log("/Recherche resultat: " + JSON.stringify(documents));
+            if (documents.length >= 1) {
+                console.log("resultat trouvé");
+                res.end(JSON.stringify(documents));
+                criteriasearch = documents;
+            }
+            else {
+                console.log("Pas de résultat");
+                res.end(JSON.stringify({ "resultat": 0 }));
+            }
+
+        });
+
 
     });
 

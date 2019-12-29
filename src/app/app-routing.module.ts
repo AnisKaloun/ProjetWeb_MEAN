@@ -5,6 +5,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { ProduitsComponent } from './produits/produits.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { PanierComponent } from './panier/panier.component';
+import { RechercheComponent } from './recherche/recherche.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path :'panier',
     component:PanierComponent
+  },
+  {
+    path :'Recherche',
+    component:RechercheComponent
   }
 ];
 

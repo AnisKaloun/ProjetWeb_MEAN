@@ -1,0 +1,25 @@
+<form (ngSubmit)="onSubmit()" #GoodSearchForm="ngForm">
+    <label>Type</label>
+	<select class="form-control col-sm-3" name="type" [(ngModel)]="Request['categorie']">
+		<option *ngFor="let t of Type" [value]="t" >{{t}}</option>
+    </select>
+    <input class="form-control" placeholder="prix max" name="maxprice" [(ngModel)]="Request['prixMax']"/>
+    <input class="form-control" placeholder="prix min" name="minprice" [(ngModel)]="Request['prixMin']"/>
+	 <input class="form-control" type="text" placeholder="Auteur" aria-label="Search" name="keywordsAuthor" [(ngModel)] = "Request['auteur']"/>
+     <input class="form-control " type="text" placeholder="Produit" aria-label="Search" name="keywordsProduct" [(ngModel)] = "Request['nom']"/>
+     <button class="btn" type="submit">Recherche</button>
+</form>
+<p>{{message}}</p>
+<div class="row justify-content-center">
+    <div class="card-body">
+        <div *ngFor="let produit of produits" class="card">
+            <div class="card-text mx-auto">
+                {{produit['nom']}} ({{produit['type']}}) 
+                {{produit['prix']}}
+                 <div *ngIf="(user|async)">
+                     <button (click)="AjoutProduit(produit)">mais achetez donc !</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

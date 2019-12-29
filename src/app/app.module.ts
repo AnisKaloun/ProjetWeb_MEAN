@@ -13,6 +13,7 @@ import { AuthentificationService } from './authentification.service';
 import { ProduitsService } from './produits.service';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { PanierComponent } from './panier/panier.component';
+import { RechercheComponent } from './recherche/recherche.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PanierComponent } from './panier/panier.component';
     MenuComponent,
     ProduitsComponent,
     InscriptionComponent,
-    PanierComponent
+    PanierComponent,
+    RechercheComponent
   ],
   imports: [
     BrowserModule,
