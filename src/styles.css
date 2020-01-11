@@ -1,4 +1,3 @@
-* Global Styles */
 
 * {
   font-family: 'Roboto', Arial, sans-serif;
@@ -60,6 +59,27 @@ input {
   margin-bottom: 16px;
   border: 1px solid #BDBDBD;
 }
+.Forms
+{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
+}
+input[type="submit"]
+{
+  display: block;
+  border-radius: 2px;
+  background-color: #1976d2;
+  color: white;
+}
+
+input[type="submit"]:hover{
+  opacity: 0.8;
+  font-weight: normal;
+}
+
 
 label {
   font-size: 12px;
@@ -99,41 +119,83 @@ label {
   color: #1976d2;
 }
 
-.fancy-button i.material-icons {
-  color: #1976d2;
-  padding-right: 4px;
-}
 
-/* Top Bar */
+/* menu design*/
 
-app-top-bar {
-  width: 100%;
-  height: 68px;
-  background-color: #1976d2;
-  padding: 16px;
+ /* Add a black background color to the top navigation */
+ .navbar {
+  background-color: rgb(35, 156, 212);
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
 
-app-top-bar h1 {
-  color: white;
-  margin: 0;
+.nav-shop {
+ height: 70%;
+ width: auto; 
 }
 
-/* Checkout Cart, Shipping Prices */
+.navbar-nav
+{
+  vertical-align: middle;
+  align-self: center;
+  align-content: center;
+  text-align: center;
+}
 
-.cart-item, .shipping-item {
-  width: 100%;
-  min-width: 400px;
-  max-width: 450px;
+.navbar ul 
+{
+padding:0;
+margin:0;
+display: flex;
+flex-direction: row;
+list-style-type:none;
+align-self: auto;
+text-align: center;
+}
+/* Style the links inside the navigation bar */
+.navbar ul li {
+  color: #f2f2f2;
   display: flex;
   flex-direction: row;
+  padding: 14px 17px;
+  text-decoration: none;
+  font-size: 17px;
+  text-align: center;
+}
+
+.navbar ul li a {
+  color: #f2f2f2;
+  text-align: justify;
+}
+.navbar ul li a span
+{
+  vertical-align: middle;
+  color: #f2f2f2;
+  text-align: center;
+}
+.navbar ul li button  {
+  color: #f2f2f2;
+
+}
+
+#TextPanier {
+  color :rgb(35, 156, 212);
+  width: 100%;
+  max-width: 450px;
+  display: right;
+  flex-direction: row;
   justify-content: space-between;
-  padding: 16px 32px;
   margin-bottom: 8px;
   border-radius: 2px;
-  background-color: #EEEEEE;
+  margin-left: 600px;
 }
+/* Change the color of links on hover */
+.navbar ul li:hover {
+  opacity: 0.8;
+}
+
+
 

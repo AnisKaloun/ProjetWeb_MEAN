@@ -1,12 +1,12 @@
-<form (ngSubmit)="onSubmit()" #inscriptionForm="ngForm">
+<form (ngSubmit)="onSubmit()" class="Forms" #connexionForm="ngForm">
     <label>Email</label>
     <input type="text" class="form-control" required [(ngModel)]="utilisateur['email']" 
     name="email"/>
     
     <label>Mot de Passe</label>
     <input type="password" class="form-control" required
-     [(ngModel)]="utilisateur['password']" name="password"/>
-     <input type="submit" value="Se connecter"/>
+    [(ngModel)]="utilisateur['password']" name="password"/>
+    <input type="submit" value="Se connecter"/>
+    <a class="nav-link active" routerLink="/inscription">Pas encore inscrit?</a>
 </form>
-<a class="nav-link active" routerLink="/inscription">Pas encore inscrit?</a>
 

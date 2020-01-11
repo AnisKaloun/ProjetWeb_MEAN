@@ -13,17 +13,16 @@
         </ul>
         <ul *ngIf="(user|async)" class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" routerLink="/produits">Liste des produits</a>
+                <a class="nav-link active" routerLink="/produits"><span>Liste des produits</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" routerLink="/Recherche">Recherche Produits</a>
+                <a class="nav-link disabled" routerLink="/Recherche"><span>Recherche Produits</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" (click)="deconnexion()">Déconnexion</a>
+                <a class="nav-link active" (click)="deconnexion()"><span>Déconnexion</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" routerLink="/panier">Panier</a>
-            </li>
+            <li class="nav-shop">
+                <a id="TextPanier" routerLink="/panier" class="button fancy-button"><i class="material-icons">shopping_cart</i>Panier</a>
         </ul>
     </div>
 </nav>
