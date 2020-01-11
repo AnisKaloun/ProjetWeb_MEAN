@@ -25,6 +25,7 @@ export class MenuComponent implements OnInit {
     console.log("i'm disconnecting");
     this.router.navigate(['/categories']);
     this.authService.disconnect();
+    window.alert("vous allez être déconnecter");
    // this.router.navigate(['/categories']);
   }
 

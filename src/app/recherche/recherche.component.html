@@ -14,8 +14,10 @@
     <div class="card-body">
         <div *ngFor="let produit of produits" class="card">
             <div class="card-text mx-auto">
-                {{produit['nom']}} ({{produit['type']}}) 
-                {{produit['prix']}}
+                <h2>Titre : {{produit['nom']}} </h2>
+                <p><span>Genre : </span>{{produit['type']}} </p>
+                <p><span>Auteur : </span>{{produit['auteur']}} </p>
+                 <p><span>Prix : </span>{{produit['prix']}} euros<p>
                  <div *ngIf="(user|async)">
                      <button (click)="AjoutProduit(produit)">mais achetez donc !</button>
                     </div>

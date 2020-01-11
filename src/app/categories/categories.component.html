@@ -1,17 +1,16 @@
 <div *ngIf="!(user|async)">
-    <p class="card-header">En vous connectant, découvrez nos :</p>
-    <div class="card-body">
+<h1>En vous connectant, découvrez nos :</h1>
+    <div class="card-body-category-disconnected">
         <div *ngFor="let categorie of categories" class="card">
-            <p class="card-text">{{categorie}}</p>
+            <h3 class="card">{{categorie}}</h3>
         </div>
     </div>
 </div>
 <div *ngIf="(user|async)">
-    <p class="card-header"> vous êtes connecté</p>
-    <div class="card-body">
+    <div class="card-body-category">
         <div *ngFor="let categorie of categories" class="card">
-            <p class="card-text">
-                <input type="button" value="Allez vite découvrire nos {{categorie}}"
+            <p class="card">
+                <input type="button" class="categorieConnecter" value="Allez vite découvrire nos {{categorie}}"
                     (click)="produitsParCategorie(categorie)" />
             </p>
         </div>

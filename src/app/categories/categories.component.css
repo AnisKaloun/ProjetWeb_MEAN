@@ -1,0 +1,14 @@
+.card
+{
+ display: inline -block;
+}
+
+.card p
+{
+    color:black;
+}
+
+.card p:hover
+{
+    opacity: 0.8;
+}

@@ -28,7 +28,6 @@ export class PanierComponent implements OnInit {
         this.route.navigated = false;
         // if you need to scroll back to top, here is the right place
         window.scrollTo(0, 0);
-        //  this.user = this.authService.getUser();
       }
     });
     this.user = this.authService.getUser();
@@ -50,12 +49,10 @@ export class PanierComponent implements OnInit {
 
   validerPanier() {
       console.log("user mail A valider le Panier" + this.email);
+      window.alert("votre Panier a été validé");
       this.produitsService.validerPanier(this.email).subscribe(val => {
-        window.alert("votre Panier a été validé");
         this.route.navigate(['/panier']);
       });
-
-
 
   }
 

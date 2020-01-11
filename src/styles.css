@@ -90,7 +90,7 @@ label {
 }
 
 /* Button */
-.button, button {
+.button, button{
   display: inline-flex;
   align-items: center;
   padding: 8px 16px;
@@ -130,11 +130,7 @@ label {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
 
-.nav-shop {
- height: 70%;
- width: auto; 
 }
 
 .navbar-nav
@@ -142,28 +138,27 @@ label {
   vertical-align: middle;
   align-self: center;
   align-content: center;
-  text-align: center;
 }
 
 .navbar ul 
 {
 padding:0;
 margin:0;
-display: flex;
-flex-direction: row;
+float: left;
 list-style-type:none;
 align-self: auto;
 text-align: center;
+display:table-row;
 }
 /* Style the links inside the navigation bar */
 .navbar ul li {
+  display: table-cell;
   color: #f2f2f2;
-  display: flex;
-  flex-direction: row;
+  float: left;
   padding: 14px 17px;
   text-decoration: none;
   font-size: 17px;
-  text-align: center;
+  vertical-align: middle;
 }
 
 .navbar ul li a {
@@ -172,30 +167,85 @@ text-align: center;
 }
 .navbar ul li a span
 {
-  vertical-align: middle;
+  margin-top: 300px;
   color: #f2f2f2;
   text-align: center;
 }
 .navbar ul li button  {
-  color: #f2f2f2;
-
+  color: #f2f2f2
 }
 
 #TextPanier {
+  position: relative;
   color :rgb(35, 156, 212);
-  width: 100%;
+  width: fit-content;
   max-width: 450px;
   display: right;
-  flex-direction: row;
   justify-content: space-between;
   margin-bottom: 8px;
   border-radius: 2px;
-  margin-left: 600px;
+  height: auto;
+  margin-left: 700px;
+}
+/*Panier*/ 
+.card-text
+{
+ width: 70%;
+ opacity: 0.9;
+ outline-style: ridge;
+ outline-color: rgb(185, 185, 185);
+ outline-offset: 20px;
+ margin-top: 70px;
+}
+.ValiderPanier
+{
+ position: relative;
+ top:25px;
 }
 /* Change the color of links on hover */
 .navbar ul li:hover {
   opacity: 0.8;
 }
 
+/*les produits */
+.card-body
+{ 
+position: relative;
+top :10%;
+left:10%;
 
+}
 
+.card-body p span
+{
+  font-size: medium;
+  color: black;
+}
+
+/*les categories */
+.card-body-category
+{
+position: relative;
+top :10%;
+left:10%;
+}
+.card-body-category-disconnected h3
+{
+color: rgb(93, 172, 218);
+font-size: 20px;
+font-style: oblique;
+font-family: fantasy;
+}
+.categorieConnecter
+{
+width: 30%;  
+height: 70px;
+text-align: center;
+color: whitesmoke;
+background-color: teal;
+}
+
+p.card{
+ margin: 0;
+ top:30 px;
+}
